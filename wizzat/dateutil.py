@@ -1,9 +1,14 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import calendar
 import contextlib
 import datetime
 import numbers
 import pytz
-import types
+import six
 
 __all__ = [
     'clear_date_formats',
@@ -52,7 +57,7 @@ __all__ = [
 _now = None
 def set_now(dt):
     """
-    Sets `pyutil.now()` function to return the specified datetime
+    Sets `wizzat.now()` function to return the specified datetime
     """
     global _now
     _now = coerce_date(dt)
@@ -60,14 +65,14 @@ def set_now(dt):
 def now():
     """
     Returns the current timestamp.
-    Can be manipulated or frozen with `pyutil.set_now` and `pyutil.reset_now`, generally for testing purposes.
+    Can be manipulated or frozen with `wizzat.set_now` and `wizzat.reset_now`, generally for testing purposes.
     """
     global _now
     return _now or datetime.datetime.utcnow()
 
 def reset_now():
     """
-    All future calls to `pyutil.now()` will return the current time as of reset_now()
+    All future calls to `wizzat.now()` will return the current time as of reset_now()
     """
     set_now(None)
     set_now(now())
@@ -195,13 +200,13 @@ def coerce_day(dt):
         return dt.date()
     elif isinstance(dt, datetime.date):
         return dt
-    elif isinstance(dt, types.NoneType):
+    elif isinstance(dt, type(None)):
         return dt
     elif isinstance(dt, numbers.Number) and _millis:
         return from_epoch_millis(dt).date()
     elif isinstance(dt, numbers.Number):
         return from_epoch(dt).date()
-    elif isinstance(dt, (str, unicode)):
+    elif isinstance(dt, six.string_types):
         return parse_date(dt).date()
     else:
         return datetime.date(dt)
@@ -215,13 +220,13 @@ def coerce_date(dt):
         return dt
     elif isinstance(dt, datetime.date):
         return datetime.datetime(dt.year, dt.month, dt.day)
-    elif isinstance(dt, types.NoneType):
+    elif isinstance(dt, type(None)):
         return dt
     elif isinstance(dt, numbers.Number) and _millis:
         return from_epoch_millis(dt)
     elif isinstance(dt, numbers.Number):
         return from_epoch(dt)
-    elif isinstance(dt, (str, unicode)):
+    elif isinstance(dt, six.string_types):
         return parse_date(dt)
     else:
         return datetime.datetime(dt)

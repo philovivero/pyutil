@@ -1,8 +1,13 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import couchbase
-from pyutil.cbtable import *
-from pyutil.testutil import *
-from pyutil.util import *
-from pyutil.decorators import *
+from wizzat.cbtable import *
+from wizzat.testutil import *
+from wizzat.util import *
+from wizzat.decorators import *
 from testcase import DBTestCase
 
 class CBTableTest(DBTestCase):

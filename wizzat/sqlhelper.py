@@ -1,3 +1,8 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 __all__ = [
     'set_sql_log_func',
     'execute',
@@ -19,7 +24,7 @@ def set_sql_log_func(func):
     def log_func(cur, sql, bind_params):
         logging.info("Executing query\n%s", cur.mogrify(sql, bind_params))
 
-    pyutil.dbhelper.set_sql_log_func(log_func)
+    wizzat.dbhelper.set_sql_log_func(log_func)
     """
     global _log_func
     _log_func = func

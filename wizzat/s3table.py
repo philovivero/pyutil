@@ -1,20 +1,22 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 try:
     import boto.exception
-    import kvtable
     import cStringIO
     import json
-    from decorators import memoize
+    import wizzat.kvtable
     from boto.s3.key import Key, compute_md5
 
     __all__ = [
         'S3Table',
     ]
 
-    class S3Table(kvtable.KVTable):
+    class S3Table(wizzat.kvtable.KVTable):
         """
-        This is a micro-ORM for working with Couchbase.  It attempts to work with CAS values
-        as much as possible for maximum safety.  It's relatively easy to structure concurrency
-        around KeyExistsError.
+        This is a micro-ORM for working with S3.
 
         Relevant options (on top of KVTable options):
         - bucket:               The S3 bucket name to store this table in

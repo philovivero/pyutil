@@ -1,14 +1,19 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import boto, boto.exception, boto.s3, boto.s3.key, json, time
-from pyutil.s3table import *
-from pyutil.testutil import *
-from pyutil.util import *
-from pyutil.decorators import *
+from wizzat.s3table import *
+from wizzat.testutil import *
+from wizzat.util import *
+from wizzat.decorators import *
 from testcase import DBTestCase
 
 class S3TableTest(DBTestCase):
     @skip_unless_env('TEST_S3')
     def setUp(self):
-        data = load_json_paths('~/.test_s3.cfg')
+        data = load_paths(json.loads, '~/.test_s3.cfg')
         self.s3_conn = boto.connect_s3(
             data['s3_access_key'],
             data['s3_secret_key'],

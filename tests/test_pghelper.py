@@ -1,14 +1,19 @@
-from pyutil.testutil import *
-from pyutil import pghelper
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from wizzat.testutil import *
+from wizzat import pghelper
 import psycopg2, psycopg2.extras
 
 class PgHelperTest(TestCase):
     db_info = {
         'host'           : 'localhost',
         'port'           : 5432,
-        'user'           : 'pyutil',
-        'password'       : 'pyutil',
-        'database'       : 'pyutil_testdb',
+        'user'           : 'wizzat',
+        'password'       : 'wizzat',
+        'database'       : 'wizzat_testdb',
         'cursor_factory' : psycopg2.extras.DictCursor,
     }
 
@@ -36,10 +41,10 @@ class PgHelperTest(TestCase):
                 SELECT 4 AS foobar
             """)
 
-            self.assertEqual(result.next()["foobar"], 1)
-            self.assertEqual(result.next()["foobar"], 2)
-            self.assertEqual(result.next()["foobar"], 3)
-            self.assertEqual(result.next()["foobar"], 4)
+            self.assertEqual(next(result)["foobar"], 1)
+            self.assertEqual(next(result)["foobar"], 2)
+            self.assertEqual(next(result)["foobar"], 3)
+            self.assertEqual(next(result)["foobar"], 4)
 
     def test_fetch_results(self):
         with psycopg2.connect(**self.db_info) as conn:

@@ -1,11 +1,18 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import os, tempfile
-from pyutil.testutil import *
-from pyutil.runner import *
-from pyutil.util import *
+from wizzat.testutil import *
+from wizzat.runner import *
+from wizzat.util import *
 
 class TestRunnerBase(TestCase):
     def test_basic(self):
         class TestRunner(RunnerBase):
+            log_root = tempfile.mkdtemp()
+
             def _run(self):
                 self.output = range(5)
 
@@ -14,6 +21,8 @@ class TestRunnerBase(TestCase):
 
     def test_does_not_run_if_should_not_run(self):
         class TestRunner(RunnerBase):
+            log_root = tempfile.mkdtemp()
+
             def should_run(self):
                 return False
 
@@ -26,6 +35,7 @@ class TestRunnerBase(TestCase):
 
     def test_exception_handling(self):
         class Runner(RunnerBase):
+            log_root = tempfile.mkdtemp()
             def _run(self):
                 1 / 0
 
@@ -38,6 +48,8 @@ class TestRunnerBase(TestCase):
     def test_pidfile(self):
         pidfile = tempfile.NamedTemporaryFile().name
         class Runner(RunnerBase):
+            log_root = tempfile.mkdtemp()
+
             def pidfile(self):
                 return pidfile
 

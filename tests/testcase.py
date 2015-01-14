@@ -1,18 +1,23 @@
-import pyutil.testutil
-import pyutil.pghelper
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
-class DBTestCase(pyutil.testutil.TestCase):
+import wizzat.testutil
+import wizzat.pghelper
+
+class DBTestCase(wizzat.testutil.TestCase):
     db_info = {
         'host'     : 'localhost',
         'port'     : 5432,
-        'user'     : 'pyutil',
-        'password' : 'pyutil',
-        'database' : 'pyutil_testdb',
+        'user'     : 'wizzatpy',
+        'password' : 'wizzat',
+        'database' : 'wizzatpy_testdb',
         'minconn'  : 0,
         'maxconn'  : 3,
     }
 
-    db_mgr = pyutil.pghelper.ConnMgr.default_from_info(**db_info)
+    db_mgr = wizzat.pghelper.ConnMgr.default_from_info(**db_info)
 
     def conn(self, name = 'testconn'):
         conn = self.db_mgr.getconn(name)
